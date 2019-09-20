@@ -1,30 +1,21 @@
 function showTime() {
-    var d = new Date();
-    document.getElementById('date').innerHTML = data();
+    document.getElementById('date').innerHTML = date();
     document.getElementById('time').innerHTML = time();
 }
 
-function data(){
+function date(){
     var d = new Date();
-    var date;
     var days = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota", "niedziela"];
     var months = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 
-    date = days[d.getDay() - 1] + ", " + d.getDate() + " " + months[d.getMonth()] + " " + d.getFullYear();
-
-    return date;
+    return days[d.getDay() - 1] + ", " + d.getDate() + " " + months[d.getMonth()] + " " + d.getFullYear();
 }
 
 function time(){
     var d = new Date();
-    var time;
-    var minutes;
+    var minutes = d.getMinutes().toString().length == 2 ? d.getMinutes() : "0" + d.getMinutes();
 
-    minutes = d.getMinutes().toString().length == 2 ? d.getMinutes() : "0" + d.getMinutes();
-
-    time = d.getHours() + ":" + minutes;
-
-    return time;
+    return d.getHours() + ":" + minutes;
 }
 showTime();
 
