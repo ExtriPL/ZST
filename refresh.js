@@ -5,6 +5,7 @@ function checkForRefreshFlag() {
         if(this.response){
           location.reload();
         }
+        console.log(this.responseText);
       }
     };
     xhttp.open("GET", "refresh.php", true);

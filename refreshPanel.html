@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+    
+<script>
+
+function changeRefreshflag(change) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+      }
+    };
+    xhttp.open("GET", "refresh.php?change=" + change, true);
+    xhttp.send();
+  }
+</script>
+<button onclick='changeRefreshflag("true")'>True</button><br><br>
+<button onclick='changeRefreshflag("false")'>False</button>
+</body>
+</html>

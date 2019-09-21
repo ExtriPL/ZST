@@ -1,4 +1,12 @@
 <?php
-$refreshFlag = true;
+
+$change = $_GET['change'];
+
+if ($change !='') {
+$refreshFlag = $change;
+}
+
 echo $refreshFlag;
+
+
 ?>
