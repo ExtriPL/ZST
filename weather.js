@@ -1,7 +1,8 @@
 let city = 'Radom';
+let weatherRefresInterval = 500;
 let temp, pressure, humidity, temp_max, temp_min, wind_speed, wind_deg;
 
-function getWeather()
+function getWeatherData()
 {
     let request = new XMLHttpRequest();
     request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=b67b20c37194b3c3764485580c451127', true);
@@ -24,4 +25,21 @@ function getWeather()
     request.send();
 }
 
-getWeather();
+function reloadWeather()
+{
+    getWeatherData();
+    reloadWeatherBar();
+    reloadWeatherSlide();
+}
+
+function reloadWeatherBar()
+{
+    document.getElementById("temp").innerHTML = Math.round(temp - 273.15) + "°C";
+}
+
+function reloadWeatherSlide()
+{
+
+}
+
+setInterval(reloadWeather, weatherRefresInterval);
