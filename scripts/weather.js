@@ -41,5 +41,6 @@ function reloadWeatherSlide()
 {
 
 }
-
+//wywołaj funkcję raz od razu po załadowaniu strony, żeby nie pojawiał się tekst NaN w miejscu temperatury
+reloadWeather();
 setInterval(reloadWeather, weatherRefresInterval);

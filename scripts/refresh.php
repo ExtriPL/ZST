@@ -8,6 +8,8 @@ if(isset($_GET['edit_text']))
 	
  fwrite($edit_file, $write_text);
  fclose($edit_file);
+ 
+ echo $write_text;
 }
 
 

@@ -7,7 +7,7 @@ function checkForRefreshFlag() {
         }
       }
     };
-    xhttp.open("GET", "flag.txt", true);
+    xhttp.open("GET", "scripts/flag.txt", true);
     xhttp.send();
   }
   setInterval('checkForRefreshFlag()', 5000);
