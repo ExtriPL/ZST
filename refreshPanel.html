@@ -11,7 +11,7 @@ function changeRefreshflag(change) {
         console.log(this.responseText);
       }
     };
-    xhttp.open("GET", "refresh.php?change=" + change, true);
+    xhttp.open("GET", "refresh.php?edit_text=" + change, true);
     xhttp.send();
   }
 </script>
