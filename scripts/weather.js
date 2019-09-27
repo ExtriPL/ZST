@@ -5,7 +5,7 @@ let temp, pressure, humidity, temp_max, temp_min, wind_speed, wind_deg;
 function getWeatherData()
 {
     let request = new XMLHttpRequest();
-    request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?id=' + cityId + '&units=metric&appid=b67b20c37194b3c3764485580c451127', true);
+    request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?id=' + cityId + '&units=metric&appid=b67b20c37194b3c3764485580c451127', false);
 
     request.onload = function()
     {
