@@ -30,10 +30,9 @@
             </tbody>
         </table>
 
-
         <script src="scripts/tables.js"></script>
         <script>
-            var newTable = <?php echo json_encode($scoreTable)?>;
+            var newTable = <?php echo json_encode($newTable)?>;
             createTable(newTable);
         </script>
 

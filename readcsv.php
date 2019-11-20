@@ -1,18 +1,93 @@
 <?php
-$table = [];
+$newTable = [];
+$allTables = [];
+$scoreTable = [];
+$filesCount = count(glob("csv/"."*"));
 
-
-if (($h = fopen("danecsv.csv", "r")) !== FALSE) 
+//Funkcja sortujące
+function sorting($a, $b)
 {
-  while (($data = fgetcsv($h, 1000, ";")) !== FALSE) 
-  {		
-    
-    $table[] = $data;
-  }
-
-  fclose($h);
+  return $a[count($a) - 1] < $b[count($b) - 1];
 }
 
-echo $table[4][0];
+function containsRegistry($reg, $array)
+{
+  $result = -1;
 
+  for($i = 0; $i < count($array); $i++)
+  {
+    $row = $array[$i];
+    $correct = true;
+    for($j = 0; $j < count($row); $j++)
+    {
+      if($reg[$j] != $row[$j])
+      {
+        $correct = false;
+        break;
+      }
+    }
+
+    if($correct)
+    {
+      $result = $i;
+      break;
+    }
+  }
+
+  return $result;
+}
+
+//Wczytywanie plików
+for($i = 1; $i <= $filesCount; $i++)
+{
+  if (($h = fopen("csv/konkurs".$i.".csv", "r")) !== FALSE) 
+  {
+    $temp = [];
+    while (($data = fgetcsv($h, 1000, ";")) !== FALSE) 
+    {	
+        $temp[] = $data;
+    }
+
+    array_push($allTables, $temp);
+
+    fclose($h);
+  }
+}
+foreach($allTables[$filesCount - 1] as $value)
+{
+  $newTable[] = $value;
+}
+
+//tworzenie listy z punktami
+foreach($allTables as $table)
+{
+  for($i = 0; $i < count($table); $i++)
+  {
+    if(strtolower($table[$i][count($table[$i]) - 1]) != "punkty")
+    {
+      $reg = [];
+      for($j = 0; $j < count($table[$i]) - 1; $j++)
+      {
+        $reg[] = $table[$i][$j];
+      }
+
+      $registryIndex = containsRegistry($reg, $scoreTable);
+      if($registryIndex != -1)
+      {
+        $points = $table[$i][count($table[$i]) - 1];
+        $scoreTable[$registryIndex][count($scoreTable[$registryIndex]) - 1] += $points;
+      }
+      else
+      {
+        $reg[] = $points;
+        $scoreTable[] = $reg;
+      }
+    }
+  }
+}
+
+
+//Sortowanie tabel po liczbie punktów
+usort($newTable, "sorting");
+array_push($scoreTable, $newTable[0]);
 ?>
