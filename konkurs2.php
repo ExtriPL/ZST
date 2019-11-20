@@ -29,12 +29,11 @@
             <tbody id="dane">               
             </tbody>
         </table>
-
-
+        
         <script src="scripts/tables.js"></script>
         <script>
-            var newTable = <?php echo json_encode($scoreTable)?>;
-            createTable(newTable);
+            var scoreTable = <?php echo json_encode($scoreTable)?>;
+            createTable(scoreTable);
         </script>
 
         <!-- <script src="scripts\weather.js"></script>

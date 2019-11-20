@@ -10,18 +10,24 @@ function sorting($a, $b)
   return $a[count($a) - 1] < $b[count($b) - 1];
 }
 
-function containsRegistry($reg, $array)
+function getRegistryIndex($reg, $array)
 {
   $result = -1;
+
+  //echo $reg[0] . ", " . $reg[1] . ", " . $reg[2] . "<br>";
+  //echo "-------------<br>";
 
   for($i = 0; $i < count($array); $i++)
   {
     $row = $array[$i];
+    //echo $row[0] . ", " . $row[1] . ", " . $row[2] . "<br>**********<br>";
     $correct = true;
-    for($j = 0; $j < count($row); $j++)
+    //echo "T". $i . " ";
+    for($j = 0; $j < count($row) - 1; $j++)
     {
       if($reg[$j] != $row[$j])
       {
+        //echo $reg[$j] . ", " . $row[$j] . "<br>";
         $correct = false;
         break;
       }
@@ -33,6 +39,8 @@ function containsRegistry($reg, $array)
       break;
     }
   }
+
+  //echo "<br>";
 
   return $result;
 }
@@ -70,24 +78,29 @@ foreach($allTables as $table)
       {
         $reg[] = $table[$i][$j];
       }
-
-      $registryIndex = containsRegistry($reg, $scoreTable);
+      $points = $table[$i][count($table[$i]) - 1];
+      $registryIndex = getRegistryIndex($reg, $scoreTable);
       if($registryIndex != -1)
       {
-        $points = $table[$i][count($table[$i]) - 1];
+        
+        $points2 = $scoreTable[$registryIndex][2];
         $scoreTable[$registryIndex][count($scoreTable[$registryIndex]) - 1] += $points;
+        //echo $points . ", " . $points2 . ", ";
       }
       else
       {
         $reg[] = $points;
         $scoreTable[] = $reg;
+        //echo $reg[0] . ", " . $reg[1] . ", " . $reg[2] . ", ";
       }
+      //echo $registryIndex . " ";
+      //echo $reg[0] . ", " . $reg[1] . ", " . $reg[2] . "<br>";
     }
   }
 }
 
-
 //Sortowanie tabel po liczbie punktów
 usort($newTable, "sorting");
-array_push($scoreTable, $newTable[0]);
+usort($scoreTable, "sorting");
+array_unshift($scoreTable, $newTable[0]);
 ?>
