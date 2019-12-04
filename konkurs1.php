@@ -33,7 +33,7 @@
         <script src="scripts/tables.js"></script>
         <script>
             var newTable = <?php echo json_encode($newTable)?>;
-            createTable(newTable);
+            createTable(newTable, [], true);
         </script>
 
         <!-- <script src="scripts\weather.js"></script>

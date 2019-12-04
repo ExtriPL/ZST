@@ -5,6 +5,10 @@ $scoreTable = []; //Tabela przechowująca najlepsze wyniki
 $path = "competitions"; //Nazwa folderu przechowującego pliki konkursowe
 $fileName = "konkurs"; //Nazwa pliku, po której mają być rozpoznawane pliki .csv
 $filesCount = count(glob($path."/"."*")); //Liczba plików
+$pointsColumnName = "Suma punktów"; //Nazwa kolumny z punktami
+$additionalPointsFromPlace = 100; //Liczba dodatkowych punktów za 1 miejsce
+$additionalPointsFromPlaceDecrease = 20; //Zmniejszeliczby punktów za każde kolejne miejsce
+$additionalPointsFromPlaceUsers = 3; //Liczba miejsc, za które są dodatkowe punkty
 
 //Funkcja sortujące
 function sorting($a, $b)
@@ -56,6 +60,28 @@ for($i = 1; $i <= $filesCount; $i++)
     fclose($h);
   }
 }
+//Przyznawanie dodatkowych punktów za kolejność odpowiedzi
+foreach($allTables as $table)
+{
+  $rewardedCount = 0;
+  /*echo "<script>var table = <?php echo json_encode(".$table.")?>; console.log(table); </script>"*/;
+  echo "<script>console.log(".json_encode($table).");</script>";
+
+  for($i = 0; $i < $additionalPointsFromPlaceUsers; $i++)
+  {
+    $points = $table[$i][count($table[$i]) - 1];
+    echo "<script>console.log(".json_encode($table[$i]).");</script>";
+    echo "<script>console.log('".$points."');</script>";
+    if(strtolower($points) != $pointsColumnName && $points != 0)
+    {
+      echo "<script>console.log(".$points.");</script>";
+      $table[$i][count($table[$i]) - 1] += $additionalPointsFromPlace - $additionalPointsFromPlaceDecrease * $rewardedCount;
+      $rewardedCount++;
+    }
+    //if($rewardedCount >= $additionalPointsFromPlaceUsers) break;
+  }
+}
+
 //Uzupełnianie tabeli $newTable najnowszymi danymi
 foreach($allTables[$filesCount - 1] as $value)
 {
@@ -68,7 +94,7 @@ foreach($allTables as $table)
   for($i = 0; $i < count($table); $i++)
   {
     //Zabezpieczenie przed sortowaniem tytułowego wiersza
-    if(strtolower($table[$i][count($table[$i]) - 1]) != "punkty")
+    if(strtolower($table[$i][count($table[$i]) - 1]) != $pointsColumnName)
     {
       $reg = []; //Rejestr wpisów, po których ma zostać odnaleziony wpis w tabeli $scoreTable(imie, nazwisko, e-mail itp. ale nie po punktach)
       //Wypełnianie rejestru odpowiednimi wpisami, ostatnia kolumna jest pomijana(są to punkty)
@@ -91,7 +117,7 @@ foreach($allTables as $table)
   }
 }
 
-usort($newTable, "sorting"); //Sortowanie tabeli po liczbie punktów
+//usort($newTable, "sorting"); //Sortowanie tabeli po liczbie punktów
 usort($scoreTable, "sorting"); //Sortowanie tabeli po liczbie punktów
 array_unshift($scoreTable, $newTable[0]); //Dodawanie wiersza z nagłówkami
 ?>
