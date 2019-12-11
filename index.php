@@ -43,7 +43,9 @@
         <div id="demo" class="carousel slide" data-interval="5000" data-ride="carousel">
             
             <div id="carousel" class="carousel-inner h-100">
-               
+                <iframe style="width:50%; height:100%; float: left;" src="konkurs1.php"></iframe>
+                <iframe style="width:50%; height:100%; float: left;" src="konkurs2.php"></iframe>
+                <div style="clear: both;"></div>
             </div>
         </div>
         <?php
@@ -58,9 +60,9 @@
             createSlides(list);
             </script>
 
-        <script src="scripts\weather.js"></script>
+        <!--<script src="scripts\weather.js"></script>-->
         <script src="scripts\resize.js"></script>
-        <script src="scripts\time.js"></script>
+        <!--<script src="scripts\time.js"></script>-->
         <script src="scripts\refresh.js"></script>
         
     </body>
