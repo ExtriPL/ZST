@@ -15,14 +15,14 @@
 
         <title>Strona dla ZST</title>
     </head>
-    <body>   
+    <body class="table-background">   
         <?php
         include("readcsv.php");
         ?>
 
         
 
-        <table class="table">
+        <table class="table table-red text-white-no-shadow">
         <thead class="thead-dark" id="header">
             
         </thead>
@@ -33,7 +33,7 @@
         <script src="scripts/tables.js"></script>
         <script>
             var newTable = <?php echo json_encode($newTable)?>;
-            createTable(newTable, [], true);
+            createTable(newTable, ["Nazwa", "Adres e-mail"], true);
         </script>
 
         <!-- <script src="scripts\weather.js"></script>
