@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $newTable = []; //Tabela przechowująca najnowsze wyniki
 $allTables = []; //Wszystkie tabele
 $scoreTable = []; //Tabela przechowująca najlepsze wyniki
@@ -60,18 +64,19 @@ for($i = 1; $i <= $filesCount; $i++)
     fclose($h);
   }
 }
+
 //Przyznawanie dodatkowych punktów za kolejność odpowiedzi
-foreach($allTables as &$table)
+for($i = 0; $i < count($allTables); $i++)
 {
   $rewardedCount = 0;
 
-  for($i = 0; $rewardedCount < $placesToReward; $i++)
+  for($j = 0; $rewardedCount < $placesToReward; $j++)
   {
-    $points = &$table[$i][count($table[$i]) - 1];
+    $points = $allTables[$i][$j][count($allTables[$i][$j]) - 1];
     if(strtolower($points) != $pointsColumnName && $points != 0)
     {
       //echo "<script>console.log(".json_encode($table[$i]).");</script>";
-      $points = "".($points + $additionalPointsFromPlace - $additionalPointsFromPlaceDecrease * $rewardedCount);
+      $allTables[$i][$j][count($allTables[$i][$j]) - 1] = "".($points + $additionalPointsFromPlace - $additionalPointsFromPlaceDecrease * $rewardedCount);
       $rewardedCount++;
       //echo "<script>console.log(".json_encode($table[$i]).");</script>";
     }
@@ -87,40 +92,37 @@ foreach($allTables[$filesCount - 1] as $value)
 //tworzenie listy z punktami
 foreach($allTables as $table)
 {
-  echo "<script>console.log(".json_encode($table).");</script>";
+  //echo "<script>console.log(".json_encode($allTables).");</script>";
   for($i = 0; $i < count($table); $i++)
   {
-    echo "<script>console.log(".json_encode($table[$i]).");</script>";
     //Zabezpieczenie przed sortowaniem tytułowego wiersza
     if($table[$i][count($table[$i]) - 1] != $pointsColumnName)
     {
       $reg = []; //Rejestr wpisów, po których ma zostać odnaleziony wpis w tabeli $scoreTable(imie, nazwisko, e-mail itp. ale nie po punktach)
+
       //Wypełnianie rejestru odpowiednimi wpisami, ostatnia kolumna jest pomijana(są to punkty)
       for($j = 0; $j < count($table[$i]) - 1; $j++)
       {
         $reg[] = $table[$i][$j];
       }
-      echo "<script>console.log(".json_encode($table[$i]).");</script>";
-      echo "<script>console.log(".json_encode($reg).");</script>";
-      $points = $table[$i][count($table[$i]) - 1]; //zczytywanie punktów, które następnie przypiszemy, lub dodamy, do odpowiedniego wpisu w tabeli $scoreTable
-      echo "<script>console.log(".$points.");</script>";
+      $points = intval($table[$i][count($table[$i]) - 1]); //zczytywanie punktów, które następnie przypiszemy, lub dodamy, do odpowiedniego wpisu w tabeli $scoreTable
       $registryIndex = getRegistryIndex($reg, $scoreTable); //Odnaleziony index wpisu w tabeli $scoreTable
+      
       if($registryIndex != -1) //Jeżeli index został odnaleziony, dodajemy zdobytą liczbę punktów, do tych, które już znajdują się w tabeli
       {
-        $scoreTable[$registryIndex][count($scoreTable[$registryIndex]) - 1] += $points;
+        $scoreTable[$registryIndex][count($scoreTable[$registryIndex]) - 1] += 10;//$points;
       }
       else //Jeżeli index nie został odnaleziony, tworzymy nowy wpis
       {
         $reg[] = $points;
         $scoreTable[] = $reg;
       }
-
-      //echo "<script>console.log(".json_encode($reg).");</script>";
     }
   }
 }
 
-//usort($newTable, "sorting"); //Sortowanie tabeli po liczbie punktów
-//usort($scoreTable, "sorting"); //Sortowanie tabeli po liczbie punktów
+
+usort($newTable, "sorting"); //Sortowanie tabeli po liczbie punktów
+usort($scoreTable, "sorting"); //Sortowanie tabeli po liczbie punktów
 array_unshift($scoreTable, $newTable[0]); //Dodawanie wiersza z nagłówkami
 ?>
