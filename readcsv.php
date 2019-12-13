@@ -110,7 +110,7 @@ foreach($allTables as $table)
       
       if($registryIndex != -1) //Jeżeli index został odnaleziony, dodajemy zdobytą liczbę punktów, do tych, które już znajdują się w tabeli
       {
-        $scoreTable[$registryIndex][count($scoreTable[$registryIndex]) - 1] += 10;//$points;
+        $scoreTable[$registryIndex][count($scoreTable[$registryIndex]) - 1] += $points;
       }
       else //Jeżeli index nie został odnaleziony, tworzymy nowy wpis
       {
