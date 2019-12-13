@@ -67,7 +67,7 @@
             ?>
             <script>
             var list = <?php echo json_encode($result) ?>;
-            //createSlides(list);
+            createSlides(list);
             </script>
 
         <script src="scripts\weather.js"></script>
