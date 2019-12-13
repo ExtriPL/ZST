@@ -75,10 +75,8 @@ for($i = 0; $i < count($allTables); $i++)
     $points = $allTables[$i][$j][count($allTables[$i][$j]) - 1];
     if(strtolower($points) != $pointsColumnName && $points != 0)
     {
-      //echo "<script>console.log(".json_encode($table[$i]).");</script>";
       $allTables[$i][$j][count($allTables[$i][$j]) - 1] = "".($points + $additionalPointsFromPlace - $additionalPointsFromPlaceDecrease * $rewardedCount);
       $rewardedCount++;
-      //echo "<script>console.log(".json_encode($table[$i]).");</script>";
     }
   }
 }
@@ -92,7 +90,6 @@ foreach($allTables[$filesCount - 1] as $value)
 //tworzenie listy z punktami
 foreach($allTables as $table)
 {
-  //echo "<script>console.log(".json_encode($allTables).");</script>";
   for($i = 0; $i < count($table); $i++)
   {
     //Zabezpieczenie przed sortowaniem tytułowego wiersza
