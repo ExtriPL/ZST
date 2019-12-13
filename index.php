@@ -24,7 +24,7 @@
             </a>        
             <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <h1 class="text-white display-4"><b>Stulecie Zespołu Szkół Technicznych 1919 - 2019</b></h1>
+                <!--<h1 class="text-white display-4"><b>Stulecie Zespołu Szkół Technicznych 1919 - 2019</b></h1>-->
                 </li>   
                 </ul>
             
@@ -67,7 +67,7 @@
             ?>
             <script>
             var list = <?php echo json_encode($result) ?>;
-            createSlides(list);
+            //createSlides(list);
             </script>
 
         <script src="scripts\weather.js"></script>
