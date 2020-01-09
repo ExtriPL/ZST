@@ -27,7 +27,7 @@ function createTable(table, columns, addLP = true)
     naglowek+="</tr>";
     document.getElementById("header").innerHTML += naglowek;
     
-    let max = 11;
+    let max = 8;
     if(table.length < max) max = table.length;
     for(let i = 1; i < max; i++)
     {

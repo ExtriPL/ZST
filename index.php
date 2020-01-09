@@ -47,8 +47,8 @@
             <div id="carousel" class="carousel-inner h-100">
             <div class="carousel-item active bck" >
             <div class="row">
-                <div class="col-md-6"><h1 class="konkurs display-3 text-center">Konkurs 1</h1></div>
-                <div class="col-md-6"><h1 class="konkurs display-3 text-center">Ranking globalny</h1></div>
+                <div class="col-md-6"><h1 class="konkurs display-5 text-center">Konkurs 1</h1></div>
+                <div class="col-md-6"><h1 class="konkurs display-5 text-center">Ranking globalny</h1></div>
             </div>
             <div class="row" style="height:100%">
                 <div class="col-md-6" style="padding:0px; padding-left:2px; padding-right:2px;"><iframe style="padding-left:15px; width:100%; height:100%; scrolling:no; border:0" src="konkurs1.php"></iframe></div>
